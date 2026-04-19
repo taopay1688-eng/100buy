@@ -629,10 +629,138 @@
     transform: none;
   }
 
+  /* ── NAVBAR ── */
+  .navbar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 48px;
+    height: 68px;
+    background: rgba(245,239,224,0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(201,146,42,0.25);
+    transition: background 0.3s, box-shadow 0.3s;
+  }
+  .navbar.scrolled {
+    background: rgba(245,239,224,0.98);
+    box-shadow: 0 4px 30px rgba(59,31,10,0.10);
+  }
+
+  .nav-logo {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    line-height: 1;
+    text-decoration: none;
+  }
+  .nav-logo-main {
+    font-family: 'Ma Shan Zheng', cursive;
+    font-size: 26px;
+    color: var(--brown-deep);
+    letter-spacing: 5px;
+  }
+  .nav-logo-sub {
+    font-size: 9px;
+    letter-spacing: 5px;
+    color: var(--gold);
+    margin-top: 2px;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 36px;
+    list-style: none;
+  }
+  .nav-links a {
+    text-decoration: none;
+    font-size: 12px;
+    letter-spacing: 3px;
+    color: var(--brown-mid);
+    position: relative;
+    padding-bottom: 4px;
+    transition: color 0.3s;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 0; height: 1px;
+    background: var(--gold);
+    transition: width 0.3s ease;
+  }
+  .nav-links a:hover { color: var(--brown-deep); }
+  .nav-links a:hover::after { width: 100%; }
+  .nav-links a.active { color: var(--brown-deep); }
+  .nav-links a.active::after { width: 100%; }
+
+  .nav-line-btn {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: #00b900;
+    color: #fff !important;
+    font-size: 11px !important;
+    letter-spacing: 2px !important;
+    padding: 8px 18px;
+    border-radius: 0;
+    transition: opacity 0.3s !important;
+  }
+  .nav-line-btn::after { display: none !important; }
+  .nav-line-btn:hover { opacity: 0.85; }
+
+  /* Hamburger for mobile */
+  .nav-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    padding: 4px;
+    background: none;
+    border: none;
+  }
+  .nav-toggle span {
+    display: block;
+    width: 24px;
+    height: 1.5px;
+    background: var(--brown-deep);
+    transition: all 0.3s;
+  }
+  .nav-toggle.open span:nth-child(1) { transform: rotate(45deg) translate(4.5px, 4.5px); }
+  .nav-toggle.open span:nth-child(2) { opacity: 0; }
+  .nav-toggle.open span:nth-child(3) { transform: rotate(-45deg) translate(4.5px, -4.5px); }
+
+  /* Push hero down by navbar height */
+  .hero { padding-top: 140px; }
+
   /* ── RESPONSIVE ── */
   @media (max-width: 680px) {
     .page-frame { inset: 6px; }
-    .hero-stamp { top: 30px; right: 24px; width: 70px; height: 70px; font-size: 9px; }
+    .navbar { padding: 0 20px; }
+    .nav-toggle { display: flex; }
+    .nav-links {
+      display: none;
+      position: absolute;
+      top: 68px; left: 0; right: 0;
+      flex-direction: column;
+      gap: 0;
+      background: rgba(245,239,224,0.98);
+      border-bottom: 1px solid rgba(201,146,42,0.2);
+      padding: 12px 0;
+    }
+    .nav-links.open { display: flex; }
+    .nav-links li { width: 100%; text-align: center; }
+    .nav-links a {
+      display: block;
+      padding: 14px 24px;
+      font-size: 13px;
+    }
+    .nav-line-btn { margin: 8px 24px; }
+    .hero-stamp { top: 90px; right: 24px; width: 70px; height: 70px; font-size: 9px; }
     .about-inner { grid-template-columns: 1fr; gap: 48px; }
     .about-img { order: -1; }
     .about-img img { aspect-ratio: 16/9; }
@@ -647,6 +775,28 @@
 </head>
 <body>
 
+<!-- ── NAVBAR ── -->
+<nav class="navbar" id="navbar">
+  <a href="#hero" class="nav-logo">
+    <span class="nav-logo-main">甘草砂</span>
+    <span class="nav-logo-sub">古早味 · 正宗傳承</span>
+  </a>
+  <button class="nav-toggle" id="navToggle" aria-label="選單">
+    <span></span><span></span><span></span>
+  </button>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#hero">首頁</a></li>
+    <li><a href="#about">關於甘草砂</a></li>
+    <li><a href="#product">精選商品</a></li>
+    <li><a href="#howtobuy">如何購買</a></li>
+    <li>
+      <a href="https://line.me/ti/p/your-line-id" class="nav-line-btn" target="_blank">
+        ＋ LINE 訂購
+      </a>
+    </li>
+  </ul>
+</nav>
+
 <!-- Fixed decorative frame -->
 <div class="page-frame">
   <div class="corner tl"></div>
@@ -656,7 +806,7 @@
 </div>
 
 <!-- ── HERO ── -->
-<section class="hero">
+<section class="hero" id="hero">
   <div class="hero-stamp">
     正宗<br>古早味<br>甘草砂
   </div>
@@ -687,7 +837,7 @@
 </section>
 
 <!-- ── ABOUT ── -->
-<section class="about">
+<section class="about" id="about">
   <span class="sec-label">ABOUT US</span>
   <h2 class="sec-title">關於甘草砂</h2>
   <div class="sec-rule"><span>✦</span></div>
@@ -716,7 +866,7 @@
 </section>
 
 <!-- ── PRODUCT ── -->
-<section class="product">
+<section class="product" id="product">
   <span class="sec-label">PRODUCT</span>
   <h2 class="sec-title" style="color:var(--cream)">精選商品</h2>
   <div class="sec-rule"><span>✦</span></div>
@@ -744,7 +894,7 @@
 </section>
 
 <!-- ── HOW TO BUY ── -->
-<section class="howtobuy">
+<section class="howtobuy" id="howtobuy">
   <span class="sec-label">HOW TO ORDER</span>
   <h2 class="sec-title">如何購買</h2>
   <div class="sec-rule"><span>✦</span></div>
