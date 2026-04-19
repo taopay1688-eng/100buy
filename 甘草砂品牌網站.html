@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>甘草砂｜古早味正宗甘草粉</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;700;900&family=Ma+Shan+Zheng&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #f5efe0;
+    --warm-white: #fdfaf3;
+    --brown-deep: #3b1f0a;
+    --brown-mid: #6b3a1f;
+    --brown-light: #a0622a;
+    --gold: #c9922a;
+    --gold-light: #e8b84b;
+    --red-vintage: #9c2b2b;
+    --red-light: #c94040;
+    --ink: #1e0e05;
+    --paper: #f0e6c8;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--brown-deep);
+    font-family: 'Noto Serif TC', serif;
+    overflow-x: hidden;
+  }
+
+  /* ── TEXTURE OVERLAY ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.5;
+  }
+
+  /* ── DECORATIVE BORDER FRAME ── */
+  .page-frame {
+    position: fixed;
+    inset: 12px;
+    border: 2px solid var(--gold);
+    pointer-events: none;
+    z-index: 100;
+  }
+  .page-frame::before {
+    content: '';
+    position: absolute;
+    inset: 4px;
+    border: 1px solid rgba(201,146,42,0.4);
+  }
+  .corner {
+    position: absolute;
+    width: 28px;
+    height: 28px;
+    border-color: var(--red-vintage);
+    border-style: solid;
+  }
+  .corner.tl { top: -3px; left: -3px; border-width: 3px 0 0 3px; }
+  .corner.tr { top: -3px; right: -3px; border-width: 3px 3px 0 0; }
+  .corner.bl { bottom: -3px; left: -3px; border-width: 0 0 3px 3px; }
+  .corner.br { bottom: -3px; right: -3px; border-width: 0 3px 3px 0; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    background:
+      radial-gradient(ellipse at 20% 50%, rgba(107,58,31,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 50%, rgba(156,43,43,0.08) 0%, transparent 60%),
+      linear-gradient(170deg, #f5ece6 0%, #f0e6c8 40%, #e8d8b0 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 80px 24px;
+    text-align: center;
+  }
+
+  /* Decorative circle watermark */
+  .hero::before {
+    content: '';
+    position: absolute;
+    width: 520px;
+    height: 520px;
+    border-radius: 50%;
+    border: 1px solid rgba(201,146,42,0.18);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    width: 440px;
+    height: 440px;
+    border-radius: 50%;
+    border: 1px solid rgba(201,146,42,0.12);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .hero-badge {
+    font-size: 12px;
+    letter-spacing: 6px;
+    color: var(--red-vintage);
+    border: 1px solid var(--red-vintage);
+    padding: 5px 20px;
+    margin-bottom: 28px;
+    animation: fadeDown 1s ease both;
+  }
+
+  .hero-stamp {
+    position: absolute;
+    top: 60px;
+    right: 80px;
+    width: 90px;
+    height: 90px;
+    border: 3px solid var(--red-vintage);
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--red-vintage);
+    font-size: 11px;
+    letter-spacing: 1px;
+    line-height: 1.4;
+    animation: fadeIn 1.5s ease both;
+    transform: rotate(-15deg);
+  }
+  .hero-stamp::before {
+    content: '';
+    position: absolute;
+    inset: 3px;
+    border-radius: 50%;
+    border: 1px dashed var(--red-vintage);
+    opacity: 0.5;
+  }
+
+  .hero-title {
+    font-family: 'Ma Shan Zheng', cursive;
+    font-size: clamp(72px, 14vw, 130px);
+    color: var(--brown-deep);
+    line-height: 1;
+    letter-spacing: 12px;
+    position: relative;
+    z-index: 1;
+    animation: fadeUp 1s ease 0.2s both;
+    text-shadow: 3px 3px 0 rgba(201,146,42,0.15);
+  }
+
+  .hero-subtitle {
+    font-size: 13px;
+    letter-spacing: 8px;
+    color: var(--brown-light);
+    margin-top: 16px;
+    margin-bottom: 32px;
+    animation: fadeUp 1s ease 0.4s both;
+  }
+
+  .hero-divider {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin: 20px 0 28px;
+    animation: fadeUp 1s ease 0.5s both;
+  }
+  .hero-divider span { width: 60px; height: 1px; background: var(--gold); }
+  .hero-divider i { color: var(--gold); font-size: 14px; font-style: normal; }
+
+  .hero-desc {
+    max-width: 480px;
+    font-size: 15px;
+    line-height: 2.2;
+    color: var(--brown-mid);
+    margin-bottom: 48px;
+    animation: fadeUp 1s ease 0.6s both;
+  }
+
+  .hero-img-wrap {
+    position: relative;
+    margin: 0 0 52px;
+    animation: fadeUp 1s ease 0.3s both;
+  }
+  .hero-img-wrap img {
+    width: 260px;
+    height: 260px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 6px solid var(--paper);
+    outline: 2px solid var(--gold);
+    outline-offset: 6px;
+    filter: sepia(15%) contrast(1.05);
+    box-shadow: 0 20px 60px rgba(59,31,10,0.25);
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 36px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    font-size: 10px;
+    letter-spacing: 4px;
+    color: var(--brown-light);
+    animation: bounce 2s infinite;
+  }
+  .scroll-hint::after {
+    content: '';
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+  }
+
+  /* ── SECTION COMMON ── */
+  section { padding: 100px 24px; }
+
+  .sec-label {
+    font-size: 10px;
+    letter-spacing: 6px;
+    color: var(--red-vintage);
+    display: block;
+    margin-bottom: 12px;
+    text-align: center;
+  }
+
+  .sec-title {
+    font-family: 'Ma Shan Zheng', cursive;
+    font-size: clamp(32px, 6vw, 52px);
+    text-align: center;
+    color: var(--brown-deep);
+    letter-spacing: 6px;
+    margin-bottom: 16px;
+  }
+
+  .sec-rule {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 60px;
+  }
+  .sec-rule::before, .sec-rule::after {
+    content: '';
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold));
+  }
+  .sec-rule::after { background: linear-gradient(to left, transparent, var(--gold)); }
+  .sec-rule span { color: var(--gold); font-size: 18px; }
+
+  /* ── ABOUT ── */
+  .about {
+    background: var(--warm-white);
+    position: relative;
+  }
+  .about-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+  .about-img {
+    position: relative;
+  }
+  .about-img img {
+    width: 100%;
+    aspect-ratio: 4/5;
+    object-fit: cover;
+    filter: sepia(20%) contrast(1.05);
+    box-shadow: 8px 8px 0 var(--gold);
+  }
+  .about-img-tag {
+    position: absolute;
+    bottom: -20px;
+    right: -20px;
+    background: var(--red-vintage);
+    color: var(--cream);
+    font-size: 11px;
+    letter-spacing: 3px;
+    padding: 10px 18px;
+  }
+  .about-text h3 {
+    font-family: 'Ma Shan Zheng', cursive;
+    font-size: 28px;
+    letter-spacing: 4px;
+    color: var(--brown-deep);
+    margin-bottom: 20px;
+    line-height: 1.5;
+  }
+  .about-text p {
+    font-size: 14px;
+    line-height: 2.4;
+    color: var(--brown-mid);
+    margin-bottom: 16px;
+  }
+  .about-highlight {
+    border-left: 3px solid var(--gold);
+    padding-left: 16px;
+    font-size: 13px;
+    color: var(--brown-light);
+    letter-spacing: 1px;
+    line-height: 2.2;
+    margin-top: 24px;
+    font-style: italic;
+  }
+
+  /* ── PRODUCT ── */
+  .product {
+    background:
+      linear-gradient(160deg, #3b1f0a 0%, #5a2d12 60%, #3b1f0a 100%);
+    position: relative;
+    overflow: hidden;
+  }
+  .product::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cpath d='M0 30 Q15 0 30 30 Q45 60 60 30' fill='none' stroke='rgba(201,146,42,0.08)' stroke-width='1'/%3E%3C/svg%3E") repeat;
+  }
+  .product .sec-label { color: var(--gold-light); }
+  .product .sec-title { color: var(--cream); }
+  .product .sec-rule::before { background: linear-gradient(to right, transparent, var(--gold-light)); }
+  .product .sec-rule::after { background: linear-gradient(to left, transparent, var(--gold-light)); }
+  .product .sec-rule span { color: var(--gold-light); }
+
+  .product-card {
+    max-width: 700px;
+    margin: 0 auto;
+    background: rgba(245,239,224,0.06);
+    border: 1px solid rgba(201,146,42,0.3);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    overflow: hidden;
+    position: relative;
+  }
+  .product-card::before {
+    content: '';
+    position: absolute;
+    inset: 6px;
+    border: 1px solid rgba(201,146,42,0.15);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .product-visual {
+    position: relative;
+    background: rgba(0,0,0,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+  }
+  .product-visual img {
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 4px solid rgba(201,146,42,0.5);
+    filter: sepia(10%) brightness(1.05);
+  }
+  .product-label-vertical {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%) rotate(-90deg);
+    font-size: 9px;
+    letter-spacing: 4px;
+    color: rgba(201,146,42,0.5);
+  }
+
+  .product-info {
+    padding: 48px 36px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-left: 1px solid rgba(201,146,42,0.2);
+  }
+  .product-name {
+    font-family: 'Ma Shan Zheng', cursive;
+    font-size: 36px;
+    color: var(--cream);
+    letter-spacing: 6px;
+    margin-bottom: 8px;
+  }
+  .product-sub {
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: var(--gold-light);
+    margin-bottom: 28px;
+  }
+  .product-features {
+    list-style: none;
+    margin-bottom: 32px;
+  }
+  .product-features li {
+    font-size: 13px;
+    color: rgba(245,239,224,0.8);
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(201,146,42,0.15);
+    letter-spacing: 1px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+  .product-features li::before {
+    content: '✦';
+    color: var(--gold-light);
+    font-size: 8px;
+    flex-shrink: 0;
+  }
+  .price-tag {
+    display: inline-block;
+    background: var(--red-vintage);
+    color: var(--cream);
+    padding: 12px 24px;
+    font-family: 'Ma Shan Zheng', cursive;
+    font-size: 22px;
+    letter-spacing: 2px;
+    position: relative;
+    align-self: flex-start;
+  }
+  .price-tag::after {
+    content: '';
+    position: absolute;
+    right: -10px;
+    top: 50%;
+    transform: translateY(-50%);
+    border-left: 10px solid var(--red-vintage);
+    border-top: 20px solid transparent;
+    border-bottom: 20px solid transparent;
+  }
+  .price-weight {
+    font-size: 12px;
+    letter-spacing: 3px;
+    color: var(--gold-light);
+    margin-top: 10px;
+  }
+
+  /* ── HOW TO BUY ── */
+  .howtobuy {
+    background: var(--paper);
+    text-align: center;
+  }
+  .line-cta-wrap {
+    max-width: 480px;
+    margin: 0 auto;
+  }
+  .line-cta-box {
+    border: 2px solid var(--brown-deep);
+    padding: 52px 48px;
+    position: relative;
+    background: var(--warm-white);
+  }
+  .line-cta-box::before {
+    content: '';
+    position: absolute;
+    inset: 6px;
+    border: 1px solid rgba(107,58,31,0.2);
+    pointer-events: none;
+  }
+  .line-cta-box::after {
+    content: '加入訂購';
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--warm-white);
+    padding: 0 16px;
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: var(--brown-light);
+  }
+  .line-icon {
+    font-size: 64px;
+    margin-bottom: 20px;
+    display: block;
+  }
+  .line-cta-title {
+    font-family: 'Ma Shan Zheng', cursive;
+    font-size: 26px;
+    letter-spacing: 4px;
+    color: var(--brown-deep);
+    margin-bottom: 12px;
+  }
+  .line-cta-desc {
+    font-size: 13px;
+    line-height: 2.2;
+    color: var(--brown-mid);
+    margin-bottom: 32px;
+  }
+  .line-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: #00b900;
+    color: #fff;
+    font-family: 'Noto Serif TC', serif;
+    font-size: 15px;
+    letter-spacing: 3px;
+    padding: 16px 40px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 4px 4px 0 rgba(0,100,0,0.3);
+  }
+  .line-btn:hover {
+    transform: translate(-2px,-2px);
+    box-shadow: 6px 6px 0 rgba(0,100,0,0.3);
+  }
+  .line-btn svg { width: 22px; height: 22px; fill: #fff; }
+
+  .steps {
+    display: flex;
+    justify-content: center;
+    gap: 48px;
+    margin-top: 64px;
+    flex-wrap: wrap;
+  }
+  .step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    max-width: 120px;
+  }
+  .step-num {
+    width: 44px;
+    height: 44px;
+    border: 2px solid var(--gold);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Ma Shan Zheng', cursive;
+    font-size: 20px;
+    color: var(--brown-deep);
+  }
+  .step-text {
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: var(--brown-mid);
+    text-align: center;
+    line-height: 1.8;
+  }
+  .step-arrow {
+    color: var(--gold);
+    font-size: 20px;
+    margin-top: 10px;
+    align-self: center;
+    flex-shrink: 0;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--brown-deep);
+    color: var(--cream);
+    text-align: center;
+    padding: 60px 24px;
+    position: relative;
+  }
+  footer::before {
+    content: '';
+    display: block;
+    height: 2px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+    margin-bottom: 40px;
+  }
+  .footer-logo {
+    font-family: 'Ma Shan Zheng', cursive;
+    font-size: 36px;
+    letter-spacing: 8px;
+    color: var(--gold-light);
+    margin-bottom: 12px;
+  }
+  .footer-tagline {
+    font-size: 11px;
+    letter-spacing: 5px;
+    color: rgba(245,239,224,0.4);
+    margin-bottom: 32px;
+  }
+  .footer-bottom {
+    font-size: 11px;
+    color: rgba(245,239,224,0.25);
+    letter-spacing: 2px;
+    margin-top: 40px;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(8px); }
+  }
+
+  /* Scroll reveal */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 680px) {
+    .page-frame { inset: 6px; }
+    .hero-stamp { top: 30px; right: 24px; width: 70px; height: 70px; font-size: 9px; }
+    .about-inner { grid-template-columns: 1fr; gap: 48px; }
+    .about-img { order: -1; }
+    .about-img img { aspect-ratio: 16/9; }
+    .product-card { grid-template-columns: 1fr; }
+    .product-visual { padding: 40px; }
+    .product-info { border-left: none; border-top: 1px solid rgba(201,146,42,0.2); }
+    .steps { gap: 24px; }
+    .step-arrow { display: none; }
+    .hero-stamp { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Fixed decorative frame -->
+<div class="page-frame">
+  <div class="corner tl"></div>
+  <div class="corner tr"></div>
+  <div class="corner bl"></div>
+  <div class="corner br"></div>
+</div>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-stamp">
+    正宗<br>古早味<br>甘草砂
+  </div>
+
+  <span class="hero-badge">TRADITIONAL · TAIWANESE · HERITAGE</span>
+
+  <div class="hero-img-wrap reveal">
+    <!-- 請換成您的產品圖 -->
+    <img src="https://images.unsplash.com/photo-1596040033229-a9821ebd058d?w=400&h=400&fit=crop" alt="甘草砂產品圖">
+  </div>
+
+  <h1 class="hero-title">甘草砂</h1>
+  <p class="hero-subtitle">古早味．正宗傳承．天然甘草粉</p>
+
+  <div class="hero-divider">
+    <span></span>
+    <i>✦</i>
+    <span></span>
+  </div>
+
+  <p class="hero-desc">
+    傳承數十年的古早滋味<br>
+    一口甘甜、餘韻悠長<br>
+    從記憶中走來的那個熟悉味道
+  </p>
+
+  <div class="scroll-hint">向下探索</div>
+</section>
+
+<!-- ── ABOUT ── -->
+<section class="about">
+  <span class="sec-label">ABOUT US</span>
+  <h2 class="sec-title">關於甘草砂</h2>
+  <div class="sec-rule"><span>✦</span></div>
+
+  <div class="about-inner">
+    <div class="about-img reveal">
+      <!-- 請換成您的品牌照片 -->
+      <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500&h=625&fit=crop" alt="古早味品牌故事">
+      <span class="about-img-tag">傳統．手工．天然</span>
+    </div>
+    <div class="about-text reveal">
+      <h3>古早的滋味<br>從未走遠</h3>
+      <p>
+        記得小時候，巷口的雜貨店裡，那罐罐裝滿甘草粉的玻璃瓶，是童年最甜蜜的回憶。
+        我們的甘草砂，承載的正是這份最純粹的台灣古早味。
+      </p>
+      <p>
+        嚴選天然甘草原料，依循傳統工法研製，不添加人工色素，讓每一口都是最真實的古早甘甜。
+        無論是沾水果、蘸蜜餞，還是撒在各式小食上，都能喚起那個年代最溫暖的記憶。
+      </p>
+      <p class="about-highlight">
+        「一粒甘草砂，是兒時的夏天，是巷弄的香氣，是台灣人共同的味覺記憶。」
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ── PRODUCT ── -->
+<section class="product">
+  <span class="sec-label">PRODUCT</span>
+  <h2 class="sec-title" style="color:var(--cream)">精選商品</h2>
+  <div class="sec-rule"><span>✦</span></div>
+
+  <div class="product-card reveal">
+    <div class="product-visual">
+      <span class="product-label-vertical">LICORICE SALT · 甘草砂</span>
+      <!-- 請換成您的產品特寫圖 -->
+      <img src="https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?w=300&h=300&fit=crop" alt="甘草砂350g">
+    </div>
+    <div class="product-info">
+      <p class="product-sub">PREMIUM LICORICE POWDER</p>
+      <h3 class="product-name">甘草砂</h3>
+      <ul class="product-features">
+        <li>天然甘草原料製成</li>
+        <li>不含人工添加物</li>
+        <li>古早傳統工法研磨</li>
+        <li>台灣在地製造</li>
+        <li>用途廣泛·百搭美味</li>
+      </ul>
+      <div class="price-tag">$125 元</div>
+      <p class="price-weight">淨重 350g / 一袋</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── HOW TO BUY ── -->
+<section class="howtobuy">
+  <span class="sec-label">HOW TO ORDER</span>
+  <h2 class="sec-title">如何購買</h2>
+  <div class="sec-rule"><span>✦</span></div>
+
+  <div class="line-cta-wrap reveal">
+    <div class="line-cta-box">
+      <span class="line-icon">💬</span>
+      <h3 class="line-cta-title">加入官方 LINE 訂購</h3>
+      <p class="line-cta-desc">
+        想品嚐正宗古早味甘草砂？<br>
+        歡迎加入我們的官方 LINE<br>
+        私訊即可輕鬆下單，快速出貨
+      </p>
+      <!-- 請將 href 換成您的 LINE 官方帳號連結 -->
+      <a href="https://line.me/ti/p/your-line-id" class="line-btn" target="_blank">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/>
+        </svg>
+        加入 LINE 官方帳號
+      </a>
+    </div>
+
+    <div class="steps">
+      <div class="step reveal">
+        <div class="step-num">一</div>
+        <p class="step-text">掃碼或點擊<br>加入 LINE</p>
+      </div>
+      <div class="step-arrow reveal">›</div>
+      <div class="step reveal">
+        <div class="step-num">二</div>
+        <p class="step-text">私訊告知<br>購買數量</p>
+      </div>
+      <div class="step-arrow reveal">›</div>
+      <div class="step reveal">
+        <div class="step-num">三</div>
+        <p class="step-text">完成付款<br>等候出貨</p>
+      </div>
+      <div class="step-arrow reveal">›</div>
+      <div class="step reveal">
+        <div class="step-num">四</div>
+        <p class="step-text">收到貨品<br>享用古早味</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-logo">甘草砂</div>
+  <p class="footer-tagline">TRADITIONAL LICORICE · TAIWANESE HERITAGE · SINCE GENERATIONS</p>
+  <div style="width:60px;height:1px;background:rgba(201,146,42,0.3);margin:0 auto 24px;"></div>
+  <p style="font-size:13px;color:rgba(245,239,224,0.5);letter-spacing:2px;line-height:2;">
+    350g 一袋 · 新台幣 125 元<br>
+    購買請加 LINE 官方帳號洽詢
+  </p>
+  <p class="footer-bottom">© 甘草砂 · 古早味正宗傳承 · All Rights Reserved</p>
+</footer>
+
+<script>
+// Scroll reveal
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((entry, i) => {
+    if (entry.isIntersecting) {
+      setTimeout(() => entry.target.classList.add('visible'), i * 80);
+    }
+  });
+}, { threshold: 0.1 });
+reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
